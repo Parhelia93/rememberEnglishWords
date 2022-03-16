@@ -20,5 +20,5 @@ from englishWords.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('enWords/', include('englishWords.urls'))
+    path('', include('englishWords.urls'))
 ]

@@ -4,4 +4,10 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse('Страница приложения')
+    return HttpResponse('Main Page of application')
+
+def categories(request, catId):
+    return HttpResponse(f'Categories number {catId}')
+
+def partOfSpeech(request, speechPart):
+    return HttpResponse(f'Part of speech: {speechPart}')
