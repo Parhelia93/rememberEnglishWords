@@ -15,10 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
-from englishWords.views import index
-
+from enWordSite import settings
+from englishWords.views import *
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('englishWords.urls'))
 ]
+if settings.DEBUG:
+    urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)
+
+handler404 = pageNotFound
