@@ -1,0 +1,27 @@
+python3 -m venv venv
+source venv/bin/activate
+python manage.py startapp englishWords
+регистрация приложения 'englishWords.apps.EnglishwordsConfig'. 
+пакет конфигурации, папка с settings.py
+request - ссылка на класс HttpRequest. Инфо о запросе, сесии куки.
+urls.py include - импортирует список маршрутов из приложения.urls
+
+----------------Model
+from applicationName.models import classModelName
+WordCategory(title='MES', description = 'Word from MES description document')
+After the row object is created, no entry is made in the table. Because model in django is lazy
+_ - in the python shell, this character can get the previous result on the command line
+method save() - can add record in data table. w1 - object model class. w1.table_field - return the value of current row in table
+from django.db import connection. connection.queries - print the value of the last request db
+ModelName.objects - referense to instance of class manager our model
+objects.create() - immediately adds a record in a db
+objects.all() - return all record from table
+objects.filter() - return record by condition
+objects.filter(<attributeName_gte, lte>) - great, less condition
+objects.exclude() -  all records that do not match the selection
+objects.get() - strictly for one record. If return more than one recorn or nothing, raise err
+ModelName.objects.filter().order_by() - sort returned row
+-------
+update record - w = ModelName.objects.filter() --> w.fieldname = 'new value' --> w.save()
+delete record - w = ModelName.objects.filter() --> w.delete() --> first select, next delete
+
