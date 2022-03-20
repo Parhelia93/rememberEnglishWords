@@ -1,0 +1,14 @@
+{% extends 'englishWords/base.html' %}
+
+{% block content %}
+<p1>{{title}}</p1>
+<ul>
+    {% for c in cats %}
+        <li>
+            <h2>{{c.title}}</h2>
+            <p>{{c.description}}</p>
+            <hr>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

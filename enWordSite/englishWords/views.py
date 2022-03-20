@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-
+from englishWords.models import *
 #Create your views here.
 
 
+menu = ['About site', 'Add category', 'Feedback', 'Sing in']
+
 def index(request):
-    return HttpResponse('Main Page of application')
+    categoryList = WordCategory.objects.all()
+    return render(request, 'englishWords/index.html', {'menu': menu, 'title':'Main Page',
+                                                       'cats':categoryList})
 
 def categories(request, catId):
     if request.GET:
@@ -22,3 +26,6 @@ def partOfSpeech(request, speechPart):
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('Stranitsa ne naidena')
+
+def about(request):
+    return render(request, 'englishWords/about.html', {'menu': menu, 'title':'Main Page'})
