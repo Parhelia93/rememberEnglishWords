@@ -24,4 +24,7 @@ ModelName.objects.filter().order_by() - sort returned row
 -------
 update record - w = ModelName.objects.filter() --> w.fieldname = 'new value' --> w.save()
 delete record - w = ModelName.objects.filter() --> w.delete() --> first select, next delete
-
+-------
+STATIC_URL - prefix URL for static file
+STATIC_ROOT - path to main static folder, which use real web server
+STATICFILES_DIRS - list of additional path to static files

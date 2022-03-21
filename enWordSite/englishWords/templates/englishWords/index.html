@@ -1,14 +1,15 @@
 {% extends 'englishWords/base.html' %}
 
 {% block content %}
-<p1>{{title}}</p1>
-<ul>
-    {% for c in cats %}
-        <li>
-            <h2>{{c.title}}</h2>
-            <p>{{c.description}}</p>
-            <hr>
-        </li>
-    {% endfor %}
+<ul class="list-articles">
+	{% for p in cats %}
+			<li><h2>{{p.title}}</h2>
+	{% autoescape on %}
+	{{p.description|linebreaks|truncatewords:50}}
+	{% endautoescape %}
+			<div class="clear"></div>
+			<p class="link-read-post"><a href="#">Читать пост</a></p>
+			</li>
+	{% endfor %}
 </ul>
 {% endblock %}
