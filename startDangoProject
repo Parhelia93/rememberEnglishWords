@@ -28,3 +28,12 @@ delete record - w = ModelName.objects.filter() --> w.delete() --> first select, 
 STATIC_URL - prefix URL for static file
 STATIC_ROOT - path to main static folder, which use real web server
 STATICFILES_DIRS - list of additional path to static files
+-------
+{% load static %} - connect static content to template
+"{% static 'englishWords/css/styles.css' %}" - tag static, add reference to static file
+-------
+{% url 'url adress or name route(from urls.py)' [reference arguments] %}
+------------
+<p class="link-read-post"><a href="{% url 'cat' p.pk %}">Читать пост</a></p>
+construct dynamicly url using name of url route and argument pk row
+But this method has flaw. We can define method in model, that can return a url

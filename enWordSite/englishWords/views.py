@@ -2,14 +2,22 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from englishWords.models import *
 #Create your views here.
+#menu = ['About site', 'Add category', 'Feedback', 'Sing in']
 
 
-menu = ['About site', 'Add category', 'Feedback', 'Sing in']
+menu = [{'title':'About site', 'url_name':'about'},
+        {'title':'Add category', 'url_name':'add_cat'},
+        {'title':'Feedback', 'url_name':'feedback'},
+        {'title':'Login', 'url_name':'login'}]
+
 
 def index(request):
     categoryList = WordCategory.objects.all()
-    return render(request, 'englishWords/index.html', {'menu': menu, 'title':'Main Page',
-                                                       'cats':categoryList})
+    context = {'menu': menu,
+               'title':'Main Page',
+               'cats': categoryList}
+
+    return render(request, 'englishWords/index.html', context=context)
 
 def categories(request, catId):
     if request.GET:
@@ -29,3 +37,12 @@ def pageNotFound(request, exception):
 
 def about(request):
     return render(request, 'englishWords/about.html', {'menu': menu, 'title':'Main Page'})
+
+def addcat(request):
+    return HttpResponse('Add category')
+
+def feedback(request):
+    return HttpResponse('Feedback page')
+
+def login(request):
+    return HttpResponse('Login page')
