@@ -37,3 +37,10 @@ STATICFILES_DIRS - list of additional path to static files
 <p class="link-read-post"><a href="{% url 'cat' p.pk %}">Читать пост</a></p>
 construct dynamicly url using name of url route and argument pk row
 But this method has flaw. We can define method in model, that can return a url
+------------
+
+Foreign key - connection many to one
+ManyToManyField - connections many to many
+OneToOneField - connection one to one
+
+ForeignKey(<reference on primary model, on_delete - limitation on delete method)

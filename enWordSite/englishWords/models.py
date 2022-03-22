@@ -10,9 +10,20 @@ class WordCategory(models.Model):
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=True)
+    progress_cat = models.ForeignKey('ProgressCat', on_delete=models.PROTECT, null=True)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('cat', kwargs={'catId':self.pk})
+
+
+class ProgressCat(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('progCat', kwargs={'progCat':self.pk})
