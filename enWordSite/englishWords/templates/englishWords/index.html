@@ -5,10 +5,13 @@
 	{% for p in cats %}
 			<li><h2>{{p.title}}</h2>
 	{% autoescape on %}
+	{% if p.photo %}
+				<p><img class="img-article-left thumb" src="{{p.photo.url}}"></p>
+	{% endif %}
 	{{p.description|linebreaks|truncatewords:50}}
 	{% endautoescape %}
 			<div class="clear"></div>
-			<p class="link-read-post"><a href="{{ p.get_absolute_url }}">Читать пост</a></p>
+			<p class="link-read-post"><a href="{{ p.get_absolute_url }}">Show category</a></p>
 			</li>
 	{% endfor %}
 </ul>

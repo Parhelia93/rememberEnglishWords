@@ -18,6 +18,8 @@ class WordCategory(models.Model):
     def get_absolute_url(self):
         return reverse('cat', kwargs={'catId':self.pk})
 
+    class Meta:
+        verbose_name = 'English_Words' # change model name in admin panel
 
 class ProgressCat(models.Model):
     name = models.CharField(max_length=50)
