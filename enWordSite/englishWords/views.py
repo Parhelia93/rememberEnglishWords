@@ -52,4 +52,15 @@ def login(request):
     return HttpResponse('Login page')
 
 def progressCategory(request, progCat):
-    return HttpResponse(f'progress cat {progCat}')
+    #return HttpResponse(f'progress cat {progCat}')
+
+    categoryList = WordCategory.objects.filter(progress_cat=progCat)
+    categoryProgress = ProgressCat.objects.all()
+
+    context = {'menu': menu,
+               'pcats': categoryProgress,
+               'cat_selected': progCat,
+               'title': 'Main Page',
+               'cats': categoryList}
+
+    return render(request, 'englishWords/index.html', context=context)
