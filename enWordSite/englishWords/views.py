@@ -13,10 +13,10 @@ menu = [{'title':'About site', 'url_name':'about'},
 
 def index(request):
     categoryList = WordCategory.objects.all()
-    categoryProgress = ProgressCat.objects.all()
+    #categoryProgress = ProgressCat.objects.all()
 
     context = {'menu': menu,
-               'pcats':categoryProgress,
+
                'cat_selected':0,
                'title':'Main Page',
                'cats': categoryList}
@@ -42,6 +42,7 @@ def pageNotFound(request, exception):
 def about(request):
     return render(request, 'englishWords/about.html', {'menu': menu, 'title':'Main Page'})
 
+
 def addcat(request):
     return HttpResponse('Add category')
 
@@ -55,10 +56,10 @@ def progressCategory(request, progCat):
     #return HttpResponse(f'progress cat {progCat}')
 
     categoryList = WordCategory.objects.filter(progress_cat=progCat)
-    categoryProgress = ProgressCat.objects.all()
+
 
     context = {'menu': menu,
-               'pcats': categoryProgress,
+
                'cat_selected': progCat,
                'title': 'Main Page',
                'cats': categoryList}
