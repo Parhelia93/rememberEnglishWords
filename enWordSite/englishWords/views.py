@@ -29,8 +29,9 @@ def categories(request, catId):
     #         return redirect('home')
     # return HttpResponse(f'Categories number {catId}')
     post_info = WordCategory.objects.get(slug=catId)
-    print(post_info)
+    print(post_info.progress_cat_id)
     context = {'menu': menu,
+               'cat_selected':post_info.progress_cat_id,
                'post': post_info}
 
     return render(request, 'englishWords/post.html', context=context)

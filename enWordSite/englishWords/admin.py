@@ -11,5 +11,9 @@ class ProgressCatAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug":("name",)}
 
 
+class ProgressCatAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug":("name",)}
+
+
 admin.site.register(WordCategory,WordCategoryAdmin)
 admin.site.register(ProgressCat,ProgressCatAdmin)

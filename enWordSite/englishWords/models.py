@@ -22,11 +22,29 @@ class WordCategory(models.Model):
     class Meta:
         verbose_name = 'English_Words' # change model name in admin panel
 
+
 class ProgressCat(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
+
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse('progCat', kwargs={'progCat':self.pk})
+
+
+class Word(models.Model):
+    word = models.CharField(max_length=50)
+    translation = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
+    example = models.TextField(blank=True)
+    ime_create = models.DateTimeField(auto_now_add=True)
+    time_update = models.DateTimeField(auto_now=True)
+    word_cat = models.ForeignKey(WordCategory, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.word
+
+    # def get_absolute_url(self):
+    #     return reverse('progCat', kwargs={'progCat':self.pk})
