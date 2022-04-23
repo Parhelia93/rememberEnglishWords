@@ -1,5 +1,15 @@
 from django.contrib import admin
 from englishWords.models import *
 # Register your models here.
-admin.site.register(WordCategory)
-admin.site.register(ProgressCat)
+
+
+class WordCategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug":("title",)}
+
+
+class ProgressCatAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug":("name",)}
+
+
+admin.site.register(WordCategory,WordCategoryAdmin)
+admin.site.register(ProgressCat,ProgressCatAdmin)

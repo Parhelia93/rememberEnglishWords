@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from englishWords.models import *
-#Create your views here.
-#menu = ['About site', 'Add category', 'Feedback', 'Sing in']
 
 
 menu = [{'title':'About site', 'url_name':'about'},
@@ -13,24 +11,30 @@ menu = [{'title':'About site', 'url_name':'about'},
 
 def index(request):
     categoryList = WordCategory.objects.all()
-    #categoryProgress = ProgressCat.objects.all()
 
     context = {'menu': menu,
 
-               'cat_selected':0,
-               'title':'Main Page',
+               'cat_selected': 0,
+               'title': 'Main Page',
                'cats': categoryList}
-
     return render(request, 'englishWords/index.html', context=context)
 
+
 def categories(request, catId):
-    if request.GET:
-        print(request.GET)
-        if request.GET['name'] == 'fuckOff':
-            raise Http404()
-        if request.GET['sname'] == '123':
-            return redirect('home')
-    return HttpResponse(f'Categories number {catId}')
+    # if request.GET:
+    #     print(request.GET)
+    #     if request.GET['name'] == 'fuckOff':
+    #         raise Http404()
+    #     if request.GET['sname'] == '123':
+    #         return redirect('home')
+    # return HttpResponse(f'Categories number {catId}')
+    post_info = WordCategory.objects.get(slug=catId)
+    print(post_info)
+    context = {'menu': menu,
+               'post': post_info}
+
+    return render(request, 'englishWords/post.html', context=context)
+
 
 def partOfSpeech(request, speechPart):
     return HttpResponse(f'Part of speech: {speechPart}')
@@ -53,8 +57,6 @@ def login(request):
     return HttpResponse('Login page')
 
 def progressCategory(request, progCat):
-    #return HttpResponse(f'progress cat {progCat}')
-
     categoryList = WordCategory.objects.filter(progress_cat=progCat)
 
 
@@ -65,3 +67,4 @@ def progressCategory(request, progCat):
                'cats': categoryList}
 
     return render(request, 'englishWords/index.html', context=context)
+
