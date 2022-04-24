@@ -41,7 +41,7 @@ class Word(models.Model):
     example = models.TextField(blank=True)
     ime_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
-    word_cat = models.ForeignKey(WordCategory, on_delete=models.CASCADE, null=True)
+    word_cat = models.ForeignKey(WordCategory, on_delete=models.CASCADE, null=True, related_name='word_cat')
 
     def __str__(self):
         return self.word

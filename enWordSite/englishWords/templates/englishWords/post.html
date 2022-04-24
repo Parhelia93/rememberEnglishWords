@@ -7,26 +7,22 @@
 <p><img class = "img-article-left" src="{{post.photo.url}}"></img></p>
 {% endif %}
 
-{{post.description}}
+<h2>{{post.description}}</h2>
 
 
 <table>
   <tr>
       <td>Word</td>
       <td>Translation</td>
-      <td>Cnt repeats</td>
-      <td>Stady of learn</td>
+      <td>Add time</td>
   </tr>
-   <tr>
-      <td><a href="#">Mother</a></td>
-      <td>Mama</td>
-      <td>0</td>
-  </tr>
-    <tr>
-      <td><a href="#">Father</a></td>
-      <td>Папа</td>
-      <td>0</td>
-  </tr>
+    {% for word in word_cat %}
+        <tr>
+            <td><a href="#">{{word.word}}</a></td>
+            <td><a href="#">{{word.translation}}</a></td>
+            <td><a href="#">{{word.ime_create}}</a></td>
+        </tr>
+    {% endfor %}
 </table>
 
 {% endblock %}

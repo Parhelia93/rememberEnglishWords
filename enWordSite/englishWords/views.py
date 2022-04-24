@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from englishWords.models import *
-
+from .models import *
+from .forms import AddWordCategory
 
 menu = [{'title':'About site', 'url_name':'about'},
         {'title':'Add category', 'url_name':'add_cat'},
@@ -29,10 +29,11 @@ def categories(request, catId):
     #         return redirect('home')
     # return HttpResponse(f'Categories number {catId}')
     post_info = WordCategory.objects.get(slug=catId)
-    print(post_info.progress_cat_id)
+    word_list = post_info.word_cat.all()
     context = {'menu': menu,
-               'cat_selected':post_info.progress_cat_id,
-               'post': post_info}
+               'cat_selected': post_info.progress_cat_id,
+               'post': post_info,
+               'word_cat': word_list}
 
     return render(request, 'englishWords/post.html', context=context)
 
@@ -49,7 +50,23 @@ def about(request):
 
 
 def addcat(request):
-    return HttpResponse('Add category')
+    if request.method == 'POST':
+        add_cat_form = AddWordCategory(request.POST)
+        if add_cat_form.is_valid():
+            #print(add_cat_form.cleaned_data)
+            try:
+                WordCategory.objects.create(**add_cat_form.cleaned_data)
+                return redirect('home')
+            except:
+                add_cat_form.add_error(None, 'Common Error Add Post')
+    else:
+        add_cat_form = AddWordCategory()
+
+    context = {'menu': menu,
+               'title': 'Add Page',
+               'form': add_cat_form
+               }
+    return render(request, 'englishWords/addWordCat.html', context=context)
 
 def feedback(request):
     return HttpResponse('Feedback page')
@@ -62,7 +79,6 @@ def progressCategory(request, progCat):
 
 
     context = {'menu': menu,
-
                'cat_selected': progCat,
                'title': 'Main Page',
                'cats': categoryList}

@@ -1,0 +1,22 @@
+{% extends 'englishWords/base.html' %}
+
+{% block content %}
+
+<form action="{% url 'add_cat' %}" method="post">
+    {% csrf_token %}
+<!--    <p><label class="form-label" for="{{form.title.id_for_label}}">{{form.title.label}}</label><label>{{form.title}}</label></p>-->
+<!--    <div class="form-error">{{form.title.errors}}</div>-->
+<!--    <button type="submit">Add</button>-->
+    <div class="form-error">{{form.non_field_errors}}</div>
+    {% for f in form %}
+        <p><label class="form-label" for="{{f.title.id_for_label}}">{{f.label}}</label><label>{{f}}</label></p>
+        <div class="form-error">{{f.errors}}</div>
+    {% endfor %}
+    <button type="submit">Add</button>
+</form>
+
+
+
+
+
+{% endblock %}
