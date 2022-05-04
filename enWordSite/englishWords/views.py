@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from .models import *
-from .forms import AddWordCategory
+from .forms import AddWordCategory, AddWord
 
 menu = [{'title':'About site', 'url_name':'about'},
         {'title':'Add category', 'url_name':'add_cat'},
+        {'title':'Add word', 'url_name':'addword'},
         {'title':'Feedback', 'url_name':'feedback'},
         {'title':'Login', 'url_name':'login'}]
 
@@ -84,4 +85,23 @@ def progressCategory(request, progCat):
                'cats': categoryList}
 
     return render(request, 'englishWords/index.html', context=context)
+
+def addWord(request):
+    if request.method == 'POST':
+        add_cat_form = AddWord(request.POST)
+        if add_cat_form.is_valid():
+            #print(add_cat_form.cleaned_data)
+            try:
+                Word.objects.create(**add_cat_form.cleaned_data)
+                return redirect('home')
+            except:
+                add_cat_form.add_error(None, 'Common Error Add Word')
+    else:
+        add_cat_form = AddWord()
+
+    context = {'menu': menu,
+               'title': 'Add Page',
+               'form': add_cat_form
+               }
+    return render(request, 'englishWords/addWord.html', context=context)
 
