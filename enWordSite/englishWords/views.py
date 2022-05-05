@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from .models import *
 from .forms import AddWordCategory, AddWord
+from django.views.generic import ListView
 
 menu = [{'title':'About site', 'url_name':'about'},
         {'title':'Add category', 'url_name':'add_cat'},
@@ -10,15 +11,29 @@ menu = [{'title':'About site', 'url_name':'about'},
         {'title':'Login', 'url_name':'login'}]
 
 
-def index(request):
-    categoryList = WordCategory.objects.all()
+# def index(request):
+#     categoryList = WordCategory.objects.all()
+#
+#     context = {'menu': menu,
+#
+#                'cat_selected': 0,
+#                'title': 'Main Page',
+#                'cats': categoryList}
+#     return render(request, 'englishWords/index.html', context=context)
+class HomePage(ListView):
+    model = WordCategory
+    template_name = 'englishWords/index.html'
+    context_object_name = 'cats'
 
-    context = {'menu': menu,
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Main page'
+        context['cat_selected'] = 0
+        return context
 
-               'cat_selected': 0,
-               'title': 'Main Page',
-               'cats': categoryList}
-    return render(request, 'englishWords/index.html', context=context)
+    def get_queryset(self):
+        return WordCategory.objects.filter(is_published=True)
 
 
 def categories(request, catId):
@@ -90,12 +105,8 @@ def addWord(request):
     if request.method == 'POST':
         add_cat_form = AddWord(request.POST)
         if add_cat_form.is_valid():
-            #print(add_cat_form.cleaned_data)
-            try:
-                Word.objects.create(**add_cat_form.cleaned_data)
-                return redirect('home')
-            except:
-                add_cat_form.add_error(None, 'Common Error Add Word')
+            add_cat_form.save()
+            return redirect('home')
     else:
         add_cat_form = AddWord()
 
